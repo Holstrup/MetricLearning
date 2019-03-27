@@ -10,19 +10,17 @@ class Model:
         self.model = self.build_model()
         self.compile_model()
 
-    def build_model(self, embedding_size=128):
+    def build_model(self):
         base_model = keras.applications.ResNet50(weights='imagenet', include_top=False,
                                                  input_tensor=keras.layers.Input(shape=(224, 224, 3)))
         x = base_model.output
-        x = keras.layers.Flatten(name='flatten')(x)
-        x = keras.layers.Dense(embedding_size, activation='softmax', kernel_initializer='glorot_uniform')(x)
+        x = keras.layers.AveragePooling2D(pool_size=(7, 7), strides=None, padding='valid')(x)
         full_model = keras.Model(inputs=base_model.input, outputs=x)
         return full_model
 
     def compile_model(self):
         self.model.compile(optimizer='adam', loss=keras.losses.MSE,
                            metrics=['accuracy'])
-
 
 
 def store_images():
@@ -55,13 +53,15 @@ def store_images():
     predictions = model.model.predict(images, batch_size=20)
     db_actions.reinitialize_table()
     for i in range(100):
-        db_actions.add_encoding(predictions[i, :], label[i])
-
+        prediction = predictions[i, :]
+        normalized_prediction = prediction / np.sum(prediction)
+        db_actions.add_encoding(normalized_prediction, label[i])
+        print("Sum is: {}".format(np.sum(normalized_prediction)))
 
 
 def get_data():
     """
-    :return: encodings array of (128, n)
+    :return: encodings array of (2048, n)
              labels list of (n)
     """
     query = "SELECT * FROM embeddings WHERE label IS NOT NULL"
@@ -70,11 +70,12 @@ def get_data():
 
 
     result_list = cursor.fetchall()
-    encodings = np.zeros((128, len(result_list)))
+    encodings = np.zeros((2048, len(result_list)))
     labels = []
 
     for i in range(len(result_list)):
         encodings[:, i] = result_list[i][0]
         labels.append(result_list[i][1].encode())
     encodings = np.nan_to_num(encodings)
+    labels = [x.decode('utf-8') for x in labels]
     return encodings.astype('float32'), labels
