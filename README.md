@@ -7,3 +7,8 @@ The logbook can be found on [Google Docs](https://docs.google.com/document/d/1Ro
 ## Report
 The report can be found on [Overleaf](https://www.overleaf.com/7617953638rbfntjnzybsj)
 
+## Resources
+* [Non Linear Metric Learning Paper](https://papers.nips.cc/paper/4840-non-linear-metric-learning.pdf)
+* [Distance Metric Learning for Large Margin
+Nearest Neighbor Classification](http://jmlr.csail.mit.edu/papers/volume10/weinberger09a/weinberger09a.pdf)
+* [Dropbox Resources](https://www.dropbox.com/sh/h8z76s64bo25wxo/AADqEIxe5qU1FQWBm2dkxY3qa?dl=0)
