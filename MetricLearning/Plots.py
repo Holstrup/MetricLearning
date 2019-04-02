@@ -1,18 +1,25 @@
-from Model import get_data
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-def plot_some_data(N_SUBPLOTS=3):
+def plot_some_data(embedding_list, label_list):
     """
     Outputs a plot of a few of the embeddings in histogram form.
 
     :param N_SUBPLOTS: Number of subplots in plot
     """
-    embeddings, labels = get_data()
+    N_plots, DIMENSIONS = np.shape(embedding_list)
     fig = plt.figure()
-    for i in range(N_SUBPLOTS):
-        ax = fig.add_subplot(N_SUBPLOTS, 1, i + 1)
-        label = labels[5 * i]
+    for i in range(N_plots):
+        ax = fig.add_subplot(N_plots, 1, i + 1)
+        label = label_list[i]
         ax.set_title("{}".format(label), size=12)
-        ax.bar(list(range(2048)), embeddings[:, 5 * i])
+        ax.bar(list(range(DIMENSIONS)), embedding_list[i, :])
     plt.show()
+
+
+def plot_kernel(L):
+    plt.imshow(L)
+    plt.colorbar()
+    plt.show()
+

@@ -4,7 +4,6 @@ import os
 import numpy as np
 import database_actions as db_actions
 
-
 class Model:
     def __init__(self):
         self.model = self.build_model()
