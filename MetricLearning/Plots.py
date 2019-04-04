@@ -23,3 +23,9 @@ def plot_kernel(L):
     plt.colorbar()
     plt.show()
 
+
+def plot_loss_curve(losses):
+    plt.plot(losses)
+    plt.show()
+
+
