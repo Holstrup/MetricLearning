@@ -5,7 +5,7 @@ def knn(embedding, matrix_embeddings, labels, k):
     """
     Function that returns the nearest neighbor to an image encoding
 
-    :param encodings: Vector of encoding for an image (,128)
+    :param encodings: Vector of encoding for an image (100, 40)
     :return: Predicted label
     """
 
