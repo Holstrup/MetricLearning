@@ -16,7 +16,7 @@ def knn(embedding, matrix_embeddings, labels, L, k):
     results = []
     for index in closest_indices:
         results.append(labels[index])
-    return mode(results)
+    return results
 
 def chi_square_distance(xi, xj):
     """
@@ -37,5 +37,5 @@ def distance(xi, X, L):
     N, D = np.shape(X)
     Distances = np.zeros(N)
     for i in range(N):
-        Distances[i] = chi_square_distance(L @ xi, X[i, :] @ L)
+        Distances[i] = chi_square_distance(L @ xi, L @ X[i, :])
     return Distances
