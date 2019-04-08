@@ -1,7 +1,8 @@
 from Model import get_data
 import numpy as np
+from statistics import mode
 
-def knn(embedding, matrix_embeddings, labels, k):
+def knn(embedding, matrix_embeddings, labels, L, k):
     """
     Function that returns the nearest neighbor to an image encoding
 
@@ -9,21 +10,32 @@ def knn(embedding, matrix_embeddings, labels, k):
     :return: Predicted label
     """
 
-    dist_vector = euclidean_distance(embedding, matrix_embeddings)
-    norm_dist_vector = dist_vector / np.linalg.norm(dist_vector)
+    dist_vector = distance(embedding, matrix_embeddings, L)
     closest_indices = np.argsort(dist_vector)[0:k]
 
     results = []
     for index in closest_indices:
-        results.append((labels[index], norm_dist_vector[index]))
+        results.append(labels[index])
     return results
 
+def chi_square_distance(xi, xj):
+    """
+    Chi square distance
 
-def euclidean_distance(vector, matrix):
-    dif_matrix = np.subtract(np.transpose(matrix), vector)
-    return np.linalg.norm(dif_matrix, axis=1)
+    :param xi: Embedding       (1, D)
+    :param xj: Target Neighbor (1, D)
+    :return: Distance
+    """
+    return 1 / 2 * np.nansum(np.square(xi - xj) / (xi + xj))
 
-
-def manhattan_distance(vector, matrix):
-    dif_matrix = np.abs(np.subtract(np.transpose(matrix), vector))
-    return dif_matrix.sum(axis = 1)
+def distance(xi, X, L):
+    """
+    :param xi: Embedding vector                        (1, F)
+    :param X: Data matrix without embedding vector (N - 1, F)
+    :return: Distance vector                       (1, N - 1)
+    """
+    N, D = np.shape(X)
+    Distances = np.zeros(N)
+    for i in range(N):
+        Distances[i] = chi_square_distance(L @ xi, L @ X[i, :])
+    return Distances
