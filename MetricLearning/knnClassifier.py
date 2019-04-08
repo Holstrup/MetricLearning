@@ -11,7 +11,6 @@ def knn(embedding, matrix_embeddings, labels, L, k):
     """
 
     dist_vector = distance(embedding, matrix_embeddings, L)
-    # norm_dist_vector = dist_vector / np.linalg.norm(dist_vector)
     closest_indices = np.argsort(dist_vector)[0:k]
 
     results = []
