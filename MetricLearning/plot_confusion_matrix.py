@@ -20,9 +20,9 @@ def plot_confusion_matrix(y_true, y_pred,
     # Set the title
     if not title:
         if normalize:
-            title = 'Normalized confusion matrix (Accuracy: {0:.2f}%, Error Rate: {1:.2f}%)'.format(accuracy, error_rate)
+            title = 'Normalized confusion matrix \n (Accuracy: {0:.2f}%, Error Rate: {1:.2f}%)'.format(accuracy, error_rate)
         else:
-            title = 'Confusion matrix, without normalization (Accuracy: {0:.2f}%, Error Rate: {1:.2f}%)'.format(accuracy, error_rate)
+            title = 'Confusion matrix, without normalization \n (Accuracy: {0:.2f}%, Error Rate: {1:.2f}%)'.format(accuracy, error_rate)
 
 
     # Only use the labels that appear in the data
