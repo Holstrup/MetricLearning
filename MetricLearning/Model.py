@@ -64,7 +64,7 @@ def get_data():
              labels list of (n)
     """
     query = "SELECT * FROM embeddings WHERE label IS NOT NULL"
-    cursor, connection = db_actions.connect()
+    cursor, connection = db_actions.connect('data.db')
     cursor.execute(query)
 
 
@@ -78,3 +78,26 @@ def get_data():
     encodings = np.nan_to_num(encodings)
     labels = [x.decode('utf-8') for x in labels]
     return encodings.astype('float32'), labels
+
+def get_data_test():
+    """
+    :return: encodings array of (2048, n)
+             labels list of (n)
+    """
+    query = "SELECT * FROM embeddings WHERE label IS NOT NULL"
+    cursor, connection = db_actions.connect('data_test.db')
+    cursor.execute(query)
+
+
+    result_list = cursor.fetchall()
+    encodings = np.zeros((2048, len(result_list)))
+    labels = []
+
+    for i in range(len(result_list)):
+        encodings[:, i] = result_list[i][0]
+        labels.append(result_list[i][1].encode())
+    encodings = np.nan_to_num(encodings)
+    labels = [x.decode('utf-8') for x in labels]
+    return encodings.astype('float32'), labels
+
+get_data_test();
