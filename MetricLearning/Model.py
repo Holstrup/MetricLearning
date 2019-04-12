@@ -22,7 +22,7 @@ class Model:
                            metrics=['accuracy'])
 
 
-def store_images():
+def store_images(database):
     """
     DO NOT CALL THIS FUNCTION UNLESS YOU HAVE DATA YOU WANT TO STORE
     IT DELETES THE CURRENT DATA.
@@ -50,21 +50,21 @@ def store_images():
     images = np.vstack(images)
     model = Model()
     predictions = model.model.predict(images, batch_size=20)
-    db_actions.reinitialize_table()
+    db_actions.reinitialize_table(database)
     for i in range(100):
         prediction = predictions[i, :]
         normalized_prediction = prediction / np.sum(prediction)
-        db_actions.add_encoding(normalized_prediction, label[i])
+        db_actions.add_encoding(database, normalized_prediction, label[i])
         print("Sum is: {}".format(np.sum(normalized_prediction)))
 
 
-def get_data():
+def get_data(dataset):
     """
     :return: encodings array of (2048, n)
              labels list of (n)
     """
     query = "SELECT * FROM embeddings WHERE label IS NOT NULL"
-    cursor, connection = db_actions.connect('data.db')
+    cursor, connection = db_actions.connect(dataset)
     cursor.execute(query)
 
 
@@ -78,26 +78,3 @@ def get_data():
     encodings = np.nan_to_num(encodings)
     labels = [x.decode('utf-8') for x in labels]
     return encodings.astype('float32'), labels
-
-def get_data_test():
-    """
-    :return: encodings array of (2048, n)
-             labels list of (n)
-    """
-    query = "SELECT * FROM embeddings WHERE label IS NOT NULL"
-    cursor, connection = db_actions.connect('data_test.db')
-    cursor.execute(query)
-
-
-    result_list = cursor.fetchall()
-    encodings = np.zeros((2048, len(result_list)))
-    labels = []
-
-    for i in range(len(result_list)):
-        encodings[:, i] = result_list[i][0]
-        labels.append(result_list[i][1].encode())
-    encodings = np.nan_to_num(encodings)
-    labels = [x.decode('utf-8') for x in labels]
-    return encodings.astype('float32'), labels
-
-get_data_test();
