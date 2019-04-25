@@ -3,8 +3,8 @@ from keras_preprocessing import image
 import keras.backend as K
 import os
 import numpy as np
-import MetricLearning.database_actions as db_actions
-from MetricLearning.triplet_loss import batch_all_triplet_loss
+import database_actions as db_actions
+from triplet_loss import batch_all_triplet_loss
 import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
