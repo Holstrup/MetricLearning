@@ -1,6 +1,6 @@
 # MetricLearning
 Repository for metric learning project in Advanced Machine Learning. 
-If you want to run the code from this project, we recommend you run the [MetricLearning/LMNN2_V2.ipynb](LMNN2_V2 Jupyter notebook)
+If you want to run the code from this project, we recommend you run the [LMNN2_V2 Jupyter notebook](MetricLearning/LMNN2_V2.ipynb)
 
 ## Logbook
 The logbook can be found on [Google Docs](https://docs.google.com/document/d/1RofzzeePFsXLnoWXAh3ukMnkZgcNVtc0KV0V-tnwtIk/edit?usp=sharing). 
