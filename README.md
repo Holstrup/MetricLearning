@@ -1,12 +1,10 @@
 # MetricLearning
-Repository for metric learning project in Advanced Machine Learning. <\br>
+Repository for metric learning project in Advanced Machine Learning. <br/>
 If you want to run the code from this project, we recommend you run the [LMNN2_V2 Jupyter notebook](MetricLearning/LMNN2_v2.ipynb)
 
 ## Logbook
 The logbook can be found on [Google Docs](https://docs.google.com/document/d/1RofzzeePFsXLnoWXAh3ukMnkZgcNVtc0KV0V-tnwtIk/edit?usp=sharing). 
 
-## Report
-The report can be found on [Overleaf](https://www.overleaf.com/7617953638rbfntjnzybsj)
 
 ## Resources
 * [Non Linear Metric Learning Paper](https://papers.nips.cc/paper/4840-non-linear-metric-learning.pdf)
