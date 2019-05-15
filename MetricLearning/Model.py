@@ -56,7 +56,7 @@ def store_images(database):
 
     """
     # image folder
-    folder_path = os.getcwd() + '/Data/'
+    folder_path = os.getcwd() + '/Data/Test'
     img_width, img_height = 224, 224
     images = []
     label = []
@@ -76,7 +76,7 @@ def store_images(database):
 
     images = np.vstack(images)
     model = Model()
-    predictions = model.model.predict(images, batch_size=20)
+    predictions = model.model.predict(images, batch_size=10)
     db_actions.reinitialize_table(database)
     for i in range(100):
         prediction = predictions[i, :]
