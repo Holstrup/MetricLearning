@@ -1,5 +1,5 @@
 # MetricLearning
-Repository for metric learning project in Advanced Machine Learning. 
+Repository for metric learning project in Advanced Machine Learning. <\br>
 If you want to run the code from this project, we recommend you run the [LMNN2_V2 Jupyter notebook](MetricLearning/LMNN2_v2.ipynb)
 
 ## Logbook
